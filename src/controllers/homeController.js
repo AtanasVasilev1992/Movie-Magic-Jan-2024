@@ -8,7 +8,7 @@ router.get('/about', (req,res)=>{
     res.render('about')
 });
 
-router.all('*', (req,res)=>{
+router.get('/404', (req,res)=>{
     res.render('404');
 });
 
