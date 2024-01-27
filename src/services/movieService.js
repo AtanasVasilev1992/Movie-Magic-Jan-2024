@@ -31,14 +31,13 @@ const movies = [{
 
 exports.getAll = () => Movie.find();
 
-exports.getOne = (movieId) => {
-    const movie = movies.find(movie => movie._id == movieId);
 
-    return movie;
-};
+exports.getOne = (movieId) => Movie.findById(movieId);
+;
 
-exports.search =  (title, genre, year) => {
-    let result = movies.slice();
+//TODO: filter result in mongoDB
+exports.search = async (title, genre, year) => {
+    let result = await Movie.find().lean();
 
     if(title) {
         result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
