@@ -8,6 +8,7 @@ router.get('/create', (req, res)=>{
 router.post('/create', async (req, res)=>{
     const castData = req.body;
     await castService.create(castData);
+    //TODO: Remove already added casts
     res.redirect('/');
 });
 
