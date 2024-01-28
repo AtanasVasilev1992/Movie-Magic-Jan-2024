@@ -23,7 +23,11 @@ const castSchema = new mongoose.Schema({
         type: String,
         required: true,
         match: /^https?:\/\//,
-    }
+    },
+    movies: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Movie"
+    }]
 });
 
 const Cast = mongoose.model('Cast', castSchema);
