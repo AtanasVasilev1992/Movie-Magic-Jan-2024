@@ -11,4 +11,8 @@ routher.post('/register', async (req,res)=>{
     res.redirect('/auth/login');
 });
 
+routher.get('/login', (req,res)=>{
+    res.render('auth/login');
+})
+
 module.exports = routher;
