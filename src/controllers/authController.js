@@ -13,6 +13,13 @@ routher.post('/register', async (req,res)=>{
 
 routher.get('/login', (req,res)=>{
     res.render('auth/login');
-})
+});
+
+routher.post('/login', async (req, res)=>{
+    const {email, password} = req.body;
+    const token = await authService.login(email, password);
+    console.log(token);
+    res.redirect('/')
+});
 
 module.exports = routher;
