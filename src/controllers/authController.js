@@ -18,7 +18,9 @@ routher.get('/login', (req,res)=>{
 routher.post('/login', async (req, res)=>{
     const {email, password} = req.body;
     const token = await authService.login(email, password);
-    console.log(token);
+
+    res.cookie('auth', token);
+    
     res.redirect('/')
 });
 
