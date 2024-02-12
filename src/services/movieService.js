@@ -28,6 +28,8 @@ exports.search = (title, genre, year) => {
 
 exports.create = (movieData) => Movie.create(movieData);
 
+exports.edit = (movieId, movieData) => Movie.findByIdAndUpdate(movieId, movieData)
+
 exports.attach = async (movieId, castId) => {
     // return Movie.findByIdAndUpdate(movieId, { $push: {casts: castId}});
 
@@ -36,7 +38,7 @@ exports.attach = async (movieId, castId) => {
 
     if (!cast) {
         throw new Error('Cast not exist!')
-    }
+    };
 
     movie.casts.push(cast);
     cast.movies.push(movie);
@@ -45,4 +47,6 @@ exports.attach = async (movieId, castId) => {
     await cast.save();
 
     return movie;
-}
+};
+
+exports.delete = (movieId) => Movie.findByIdAndDelete(movieId);
