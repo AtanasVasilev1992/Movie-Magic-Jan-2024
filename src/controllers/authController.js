@@ -7,8 +7,14 @@ routher.get('/register', (req, res)=>{
 
 routher.post('/register', async (req,res)=>{
     const userData = req.body;
-    await authService.register(userData);
-    res.redirect('/auth/login');
+
+    try {
+        await authService.register(userData);
+
+        res.redirect('/auth/login');
+    } catch (err) {
+        res.render('auth/register', {error: err.message});
+    };
 });
 
 routher.get('/login', (req,res)=>{
