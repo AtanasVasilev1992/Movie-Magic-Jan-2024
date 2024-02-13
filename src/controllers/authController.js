@@ -1,5 +1,6 @@
 const routher = require("express").Router();
-const authService = require('../services/authService')
+const authService = require('../services/authService');
+const { getErrorMessage } = require("../utils/errorUtils");
 
 routher.get('/register', (req, res)=>{
     res.render('auth/register');
@@ -13,7 +14,9 @@ routher.post('/register', async (req,res)=>{
 
         res.redirect('/auth/login');
     } catch (err) {
-        res.render('auth/register', {error: err.message});
+        const message = getErrorMessage(err);
+
+        res.render('auth/register', { ...userData, error: message});
     };
 });
 
@@ -23,11 +26,18 @@ routher.get('/login', (req,res)=>{
 
 routher.post('/login', async (req, res)=>{
     const {email, password} = req.body;
-    const token = await authService.login(email, password);
+
+    try {
+        const token = await authService.login(email, password);
 
     res.cookie('auth', token);
     
     res.redirect('/')
+    } catch (err) {
+        const message = getErrorMessage(err);
+        res.status(400).render('auth/login', { error: message });
+    };
+    
 });
 
 routher.get('/logout', (req,res)=>{
